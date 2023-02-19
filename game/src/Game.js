@@ -15,24 +15,26 @@ export default function Game() {
   let apiurl = "wazzoot.bxllistic.ga"
 
   useEffect(() => {
-     async function fetchData() {
-      const response = await fetch(`http://${apiurl}/api/question/?id=${questionIndex}`);
-      const data = await response.json();
-      console.log(data[0]);
-      if (!data[0]) {
-        setMode("start");
-      }
-       
-      let arr = [
-        data[0].question, [
-        data[0].option1,
-        data[0].option2,
-        data[0].option3,
-        data[0].option4,
-      ],
-      data[0].correct_option
-      ];
-      setData(arr);
+     function fetchData() {
+       fetch(`http://${apiurl}/api/question/?id=${questionIndex}`)
+         .then(response => response.json())
+         .then(dat => {
+           console.log(dat[0])
+           if (!dat[0]) {
+             setMode("start");
+           }
+
+           let arr = [
+             dat[0].question, [
+               dat[0].option1,
+               dat[0].option2,
+               dat[0].option3,
+               dat[0].option4,
+             ],
+             dat[0].correct_option
+           ];
+           setData(arr);
+         });
      };
     fetchData();
   }, [questionIndex]);

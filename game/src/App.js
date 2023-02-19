@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import React from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './App.css';
@@ -13,12 +13,31 @@ function App() {
 
 function Game() {
   const [mode, setMode] = useState('start');
+  const [questionIndex, setQuestion] = useState(0);
+
+
+  let questions = [
+    ["What color is the sky?", ["red", "blue", "green", "orange"], 1],
+    ["What shoes am i wearing?", ["boots", "sneakers", "heels", "sandals"], 0],
+    ["What is the capitol of Canada", ["Calgary", "Kamloops", "Vancouver", "Montreal"], 3],
+  ];
+
+  let question = questions[questionIndex];
+
   return (
     <div className="">
       {mode === 'start' && (
-        <StartMenu onStartClick={() => setMode('kahoot')} />
+        <StartMenu onStartClick={() => setMode('question')}/>
       )}
-      {mode === 'kahoot' && <Kahoot />}
+      {mode === 'question' && (
+        <Question goToAnswerScreen={() => setMode('answer')}
+        question = {() => {return question}}/>
+      )}
+      {mode === 'answer' && (
+        <Answer goToQuestionScreen={() => setMode('question')} 
+        nextQuestion = {() => setQuestion(questionIndex + 1)}
+        question = {() => {return question}}/>
+      )}
     </div>
   )
 }
@@ -33,45 +52,60 @@ function StartMenu({ onStartClick }) {
   )
 }
 
-function Kahoot() {
+function Question({ goToAnswerScreen, question }) {
   let ansBtn = "btn btn-block answer-btn"
 
-  let questions = [
-    ["What color is the sky?", ["red", "blue", "green", "orange"], 1],
-    ["What shoes am i wearing?", ["boots", "sneakers", "heels", "sandals"], 0],
-  ];
-
   const [answerClicked, setAnswerClicked] = useState(0);
-  const [question, setQuestion] = useState(0);
 
-  const update = (ans) => {
-    setAnswerClicked(ans);
-    setQuestion(question + 1);
-    question = question + 1;
+  const timer = (time) => {
+    setTimeout(() => {
+      goToAnswerScreen();
+    }, time * 1000);
   }
+
+  timer(5);
 
   return (
     <div className="container">
       <div className="row">
-      <h1>{questions[question][0]}</h1>
-      <button className={ansBtn} onClick={() => update(0) }>
-        {questions[question][1][0]}
+      <h1>{question()[0]}</h1>
+      <button className={ansBtn} onClick={() => setAnswerClicked(0) }>
+        {question()[1][0]}
       </button>
-      <button className={ansBtn} onClick={() => update(1)}>
-        {questions[question][1][1]}
+      <button className={ansBtn} onClick={() => setAnswerClicked(1)}>
+        {question()[1][1]} 
       </button>
     </div>
     <div className="row">
-      <button className={ansBtn} onClick={() => update(2)}>
-        {questions[question][1][2]}
+      <button className={ansBtn} onClick={() => setAnswerClicked(2)}>
+        {question()[1][2]}
       </button>
-      <button className={ansBtn} onClick={() => update(3)}>
-        {questions[question][1][3]}
+      <button className={ansBtn} onClick={() => setAnswerClicked(3)}>
+        {question()[1][3]}
       </button>
     </div>
     </div>
   )
 }
 
+function Answer({ goToQuestionScreen, nextQuestion , question }) {
+
+  const timer = (time) => {
+    setTimeout(() => {
+      nextQuestion()
+      goToQuestionScreen();
+    }, time * 1000)
+  }
+
+  timer(3);
+
+  return (
+    <div>
+      <h1 className="jumbotron">
+        {question()[1][question()[2]]}
+      </h1>
+    </div>
+  )
+}
 
 export default App;

@@ -15,7 +15,6 @@ function Game() {
   const [mode, setMode] = useState('start');
   const [questionIndex, setQuestion] = useState(0);
 
-
   let questions = [
     ["What color is the sky?", ["red", "blue", "green", "orange"], 1],
     ["What shoes am i wearing?", ["boots", "sneakers", "heels", "sandals"], 0],
@@ -31,12 +30,14 @@ function Game() {
       )}
       {mode === 'question' && (
         <Question goToAnswerScreen={() => setMode('answer')}
-        question = {() => {return question}}/>
+        question = {() => {return question}}
+        />
       )}
       {mode === 'answer' && (
         <Answer goToQuestionScreen={() => setMode('question')} 
         nextQuestion = {() => setQuestion(questionIndex + 1)}
-        question = {() => {return question}}/>
+        question = {() => {return question}}
+       />
       )}
     </div>
   )
@@ -54,8 +55,8 @@ function StartMenu({ onStartClick }) {
 
 function Question({ goToAnswerScreen, question }) {
   let ansBtn = "btn btn-block answer-btn"
+  const [answerClicked, setAnswerClicked] = useState(-1);
 
-  const [answerClicked, setAnswerClicked] = useState(0);
 
   const timer = (time) => {
     setTimeout(() => {
@@ -97,15 +98,17 @@ function Answer({ goToQuestionScreen, nextQuestion , question }) {
     }, time * 1000)
   }
 
-  timer(3);
+  timer(2);
 
   return (
     <div>
       <h1 className="jumbotron">
         {question()[1][question()[2]]}
+        
       </h1>
     </div>
   )
+
 }
 
 export default App;

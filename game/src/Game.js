@@ -3,16 +3,20 @@ import { useState, useEffect } from 'react'
 import StartMenu from './StartMenu'
 import Question from './Question'
 import Answer from './Answer'
+import Login from './Login'
 
 export default function Game() {
   const [mode, setMode] = useState('start');
   const [questionIndex, setQuestion] = useState(1);
   const [answerClicked, setAnswerClicked] = useState(-1);
   const [data, setData] = useState([]);
-  
+  const [playerName, setPlayer] = useState([]);
+
+  let apiurl = "wazzoot.bxllistic.ga"
+
   useEffect(() => {
      async function fetchData() {
-      const response = await fetch(`http://localhost:8000/api/question/?id=${questionIndex}`);
+      const response = await fetch(`http://${apiurl}/api/question/?id=${questionIndex}`);
       const data = await response.json();
       console.log(data[0]);
       if (!data[0]) {
@@ -36,8 +40,11 @@ export default function Game() {
   return (
     <div className="">
       {mode === 'start' && (
-        <StartMenu onStartClick={() => setMode('question')}/>
+        <StartMenu onStartClick={() => setMode('login')}/>
       )}
+      {mode === 'login' && (
+        <Login onEnter={() => {setMode('question')}} updateName={(playerName) => {setPlayer(playerName)}}/>
+      )} 
       {mode === 'question' && (
         <Question goToAnswerScreen={() => setMode('answer')}
         question = {() => {return data}}

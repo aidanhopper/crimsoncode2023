@@ -42,7 +42,7 @@ export default function Game() {
   return (
     <div className="">
       {mode === 'start' && (
-        <StartMenu onStartClick={() => setMode('login')}/>
+        <StartMenu onStartClick={() => {setMode('login'); setQuestion(1)}}/>
       )}
       {mode === 'login' && (
         <Login onEnter={() => {setMode('question')}} updateName={(playerName) => {setPlayer(playerName)}}/>

@@ -1,14 +1,11 @@
+import useTimer from "./useTimer"
 
 export default function Answer({ goToQuestionScreen, nextQuestion , question }) {
 
-  const timer = (time) => {
-    setTimeout(() => {
-      nextQuestion()
-      goToQuestionScreen();
-    }, time * 1000)
-  }
-
-  timer(2);
+  const timeLeft = useTimer(() => {
+    nextQuestion();
+    goToQuestionScreen();
+  });
 
   return (
     <div>

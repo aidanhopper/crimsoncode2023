@@ -1,9 +1,4 @@
-.main {
-  position: relative;
-  width: 100vw;
-  height: 100vh;
-  
-}
-
-.startButton {
+.answer-btn {
+  padding: 30px;
+  font-size: 30px;
 }

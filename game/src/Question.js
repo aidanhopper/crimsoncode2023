@@ -1,8 +1,7 @@
 import { useState, useEffect } from 'react'
 
-export default function Question({ goToAnswerScreen, question }) {
-  let ansBtn = "btn btn-block answer-btn"
-  const [answerClicked, setAnswerClicked] = useState(-1);
+export default function Question({ goToAnswerScreen, question, setAnswerClicked }) {
+  let ansBtn = "btn btn-block answer-btn";
 
   useEffect(() => {
     setTimeout(() => {

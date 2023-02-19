@@ -1,12 +1,11 @@
 import { useState, useEffect } from 'react'
+import useTimer from './useTimer';
 
 export default function Question({ goToAnswerScreen, question, setAnswerClicked }) {
 
-  useEffect(() => {
-    setTimeout(() => {
-      goToAnswerScreen()
-    }, 5 * 1000)
-  }, [goToAnswerScreen])
+  const timeLeft = useTimer(() => {
+    goToAnswerScreen();
+  })
 
   return (
     <div className="container">

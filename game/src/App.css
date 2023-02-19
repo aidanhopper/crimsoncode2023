@@ -1,4 +1,14 @@
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
 .answer-btn {
   padding: 30px;
   font-size: 30px;
+}
+
+.startBtn {
+  padding: 30px;
+  font-size: 50px;
 }

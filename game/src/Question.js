@@ -1,14 +1,11 @@
 import { useState, useEffect } from 'react'
+import useTimer from './useTimer';
 
-export default function Question({ goToAnswerScreen, question }) {
-  let ansBtn = "btn btn-block answer-btn"
-  const [answerClicked, setAnswerClicked] = useState(-1);
+export default function Question({ goToAnswerScreen, question, setAnswerClicked }) {
 
-  useEffect(() => {
-    setTimeout(() => {
-      goToAnswerScreen()
-    }, 8 * 1000)
-  }, [goToAnswerScreen])
+  const timeLeft = useTimer(() => {
+    goToAnswerScreen();
+  })
 
   return (
     <div className="container">

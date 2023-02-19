@@ -1,16 +1,12 @@
+import { useState, useEffect } from 'react'
 
 export default function Answer({ goToQuestionScreen, nextQuestion , question, getAnswerClicked }) {
 
-  const timer = (time) => {
+  useEffect(() => {
     setTimeout(() => {
       nextQuestion()
       goToQuestionScreen();
-    }, time * 1000)
-  }
-
-  timer(2);
-
-  //console.log(question);
+    }, 5 * 1000)}, [goToQuestionScreen]);
 
   let text = "WRONG ANSWER!";
   if (getAnswerClicked() === question[2]) {
@@ -19,7 +15,6 @@ export default function Answer({ goToQuestionScreen, nextQuestion , question, ge
 
   return (
     <div>
-      
       <h1 className="jumbotron">
         {question()[1][question()[2]]}
         {text}

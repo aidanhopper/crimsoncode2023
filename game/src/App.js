@@ -5,8 +5,8 @@ import './App.css';
 
 function App() {
   return (
-    <div class="header jumbotron text-center">
-      <Game />
+    <div class="blue header jumbotron text-center">
+      <Game /> 
     </div>
   );
 }
